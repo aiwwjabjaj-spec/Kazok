@@ -1,0 +1,695 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="theme-color" content="#74132f">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="KAZO">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-192.png">
+<title>KAZO | Creative Agency</title>
+<style>
+:root{--bg:#0c090b;--panel:#191216;--panel2:#24151d;--wine:#74132f;--red:#bd315d;--text:#f8f2f4;--muted:#b9aab0;--line:#42202d}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;background:radial-gradient(circle at 80% 0,#32101f 0,transparent 32%),var(--bg);color:var(--text);font:15px/1.5 Inter,system-ui,-apple-system,Segoe UI,sans-serif;padding-bottom:84px}
+button,input,textarea,select{font:inherit}button{cursor:pointer;border:0}
+.app{max-width:1080px;margin:auto;padding:18px}
+.top{display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);padding:6px 0 16px;gap:10px}
+.brand{display:flex;align-items:center;gap:12px}
+.brand img{width:46px;height:46px;object-fit:contain;background:#fff;border-radius:10px;padding:3px}
+.brand strong{font-size:23px;letter-spacing:5px}
+.brand small{display:block;color:#d65b80;letter-spacing:2px;font-size:10px}
+.tag{border:1px solid #713047;border-radius:30px;padding:6px 12px;color:#e4a2b6;font-size:11px;white-space:nowrap}
+.tag.online{border-color:#2c7a4b;color:#8ee0ad;background:#14291d}
+.install-banner{background:linear-gradient(120deg,#3d1223,#1c1116);border:1px solid #8a2c4b;border-radius:14px;padding:14px 16px;margin:14px 0;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.install-banner b{display:block;font-size:14px;color:#fff}
+.install-banner span{font-size:12px;color:#d8bcc6}
+nav.desktop-nav{display:flex;gap:8px;flex-wrap:wrap;margin:18px 0}
+nav.desktop-nav button,.btn{padding:10px 15px;border-radius:10px;background:var(--panel);color:var(--muted);border:1px solid var(--line);transition:.18s}
+nav.desktop-nav button.active,.btn.primary{background:var(--wine);color:white;border-color:#a32a50}
+.btn.whatsapp{background:#184a2c;border-color:#2c7a4b;color:#d5f7e2}
+.btn.sm{padding:7px 11px;font-size:12px;border-radius:8px}
+.bottom-bar{position:fixed;bottom:0;left:0;right:0;background:rgba(18,12,15,.96);backdrop-filter:blur(12px);border-top:1px solid var(--line);display:none;grid-template-columns:repeat(6,1fr);padding:6px 4px env(safe-area-inset-bottom);z-index:50}
+.bottom-bar button{background:transparent;color:var(--muted);display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px 2px;font-size:10px;border-radius:10px}
+.bottom-bar button span.ico{font-size:17px;line-height:1}
+.bottom-bar button.active{color:#ff7aa2;font-weight:600}
+.hero{background:linear-gradient(115deg,#35101f,#160d12 65%);border:1px solid #67233b;border-radius:20px;padding:28px;margin-bottom:22px;position:relative;overflow:hidden}
+.hero:after{content:"";position:absolute;width:240px;height:240px;border:1px solid #9a3155;transform:rotate(35deg);right:-80px;top:-80px;opacity:.45;pointer-events:none}
+.eyebrow{color:#e16b91;text-transform:uppercase;letter-spacing:3px;font-size:11px}
+.hero h1{font-size:clamp(30px,6vw,54px);line-height:1.06;margin:10px 0}
+.hero p{color:#d4c2c9;max-width:550px}
+.hero-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.section-title{display:flex;align-items:center;justify-content:space-between;margin:22px 0 12px;gap:10px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.card{background:linear-gradient(145deg,#21171c,#140f12);border:1px solid var(--line);border-radius:15px;padding:18px}
+.card h3{margin:5px 0}.muted{color:var(--muted);font-size:13px}.icon{font-size:24px;color:#e05a82}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.stat b{font-size:26px;display:block}
+.row{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.status{font-size:11px;border-radius:20px;padding:4px 9px;background:#3b2b1a;color:#ffd18b}
+.status.done{background:#173b29;color:#8ee0ad}.status.live{background:#3d1828;color:#f38bad}
+form{display:grid;gap:12px;max-width:650px}
+label{display:grid;gap:5px;color:#e9dce1;font-size:13px}
+input,textarea,select{width:100%;padding:12px;border-radius:9px;border:1px solid #583041;background:#100c0f;color:white}
+textarea{min-height:95px;resize:vertical}.hidden{display:none!important}
+.notice{padding:13px;border-radius:10px;background:#19291e;border:1px solid #315a3c;color:#bce7c8;margin-top:12px;font-size:13px}
+.list{display:grid;gap:10px}.item{background:var(--panel);border:1px solid var(--line);padding:14px;border-radius:12px}
+.chat-box{display:grid;gap:10px;max-height:360px;overflow-y:auto;padding:12px;background:#100c0f;border:1px solid var(--line);border-radius:12px;margin-bottom:12px}
+.msg{padding:10px 13px;border-radius:12px;max-width:82%;font-size:13.5px}
+.msg.agency{background:#26161e;border:1px solid #522638;justify-self:start}
+.msg.user{background:var(--wine);color:#fff;justify-self:end}
+.msg small{display:block;font-size:10px;opacity:.75;margin-top:4px}
+.footer{margin-top:32px;padding:18px 0;border-top:1px solid var(--line);color:#88777f;font-size:12px}
+@media(max-width:720px){
+  nav.desktop-nav{display:none}
+  .bottom-bar{display:grid}
+  .app{padding:14px}
+  .hero{padding:22px}
+  .stats{grid-template-columns:repeat(3,1fr)}
+}
+.lock-box{max-width:440px;margin:10px 0}.pin-row{display:flex;gap:8px;align-items:center}.err-text{color:#ff8fa8;font-size:12.5px;margin-top:6px}
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="top">
+    <div class="brand">
+      <img src="kazo-logo.jpg" alt="KAZO sembolü" onerror="this.src='icon-192.png'">
+      <div><strong>KAZO</strong><small>CREATIVE AGENCY</small></div>
+    </div>
+    <span class="tag" id="appModeBadge">BAĞLANIYOR...</span>
+  </header>
+
+  <div id="installBanner" class="install-banner hidden">
+    <div>
+      <b>KAZO'yu Telefonuna Yükle</b>
+      <span>Ana ekrana ekleyerek gerçek uygulama gibi tam ekran kullan.</span>
+    </div>
+    <button class="btn primary sm" id="installBtn">Yükle</button>
+  </div>
+
+  <nav class="desktop-nav" id="desktopNav">
+    <button class="active" data-page="home">Ana Sayfa</button>
+    <button data-page="projects">Projeler</button>
+    <button data-page="request">Teklif Al</button>
+    <button data-page="admin">Yönetici</button>
+    <button data-page="messages">Mesajlar</button>
+    <button data-page="profile">Profil</button>
+  </nav>
+
+  <main>
+    <section id="home" class="page">
+      <div class="hero">
+        <div class="eyebrow">KAZO CREATIVE AGENCY</div>
+        <h1>Markanı birlikte<br><span style="color:#d84672">büyütelim.</span></h1>
+        <p>Fikirleri güçlü markalara, markaları unutulmaz deneyimlere dönüştürüyoruz.</p>
+        <div class="hero-actions">
+          <button class="btn primary" onclick="go('request')">Teklif Al →</button>
+          <button class="btn" onclick="go('projects')">Portföyü İncele</button>
+        </div>
+      </div>
+
+      <div class="section-title"><h2>Hizmetlerimiz</h2></div>
+      <div class="grid">
+        <div class="card"><div class="icon">✳</div><h3>Sosyal Medya Yönetimi</h3><p class="muted">İçerik planlama, tasarım ve hesap yönetimi.</p></div>
+        <div class="card"><div class="icon">▧</div><h3>Grafik Tasarım</h3><p class="muted">Markanı yansıtan yaratıcı görsel tasarımlar.</p></div>
+        <div class="card"><div class="icon">▶</div><h3>Video Prodüksiyon</h3><p class="muted">Tanıtım filmi, reels ve reklam videoları.</p></div>
+        <div class="card"><div class="icon">◈</div><h3>Marka Kimliği</h3><p class="muted">Logo, kurumsal kimlik ve marka dili.</p></div>
+        <div class="card"><div class="icon">◎</div><h3>Fotoğraf Çekimi</h3><p class="muted">Ürün, mekan ve reklam fotoğrafçılığı.</p></div>
+        <div class="card"><div class="icon">↗</div><h3>Reklam Yönetimi</h3><p class="muted">Dijital reklam stratejisi ve kampanyalar.</p></div>
+      </div>
+    </section>
+
+    <section id="projects" class="page hidden">
+      <div class="section-title"><h2>Projelerimiz</h2><span class="tag">PORTFÖY</span></div>
+      <div id="projectList" class="grid"></div>
+    </section>
+
+    <section id="request" class="page hidden">
+      <div class="section-title"><h2>Teklif Talebi</h2></div>
+      <div class="card">
+        <p class="muted">Projenizi anlatın, KAZO ekibi sizinle hemen iletişime geçsin.</p>
+        <form id="requestForm">
+          <label>İşletme / Marka adı<input required name="company" placeholder="Markanızın adı"></label>
+          <label>Adınız<input required name="person" placeholder="Adınız soyadınız"></label>
+          <label>Telefon veya e-posta<input required name="contact" placeholder="05xx xxx xx xx veya e-posta"></label>
+          <label>İlgilendiğiniz hizmet
+            <select name="service">
+              <option>Sosyal Medya Yönetimi</option>
+              <option>Grafik Tasarım</option>
+              <option>Video Prodüksiyon</option>
+              <option>Reklam Yönetimi</option>
+              <option>Marka Kimliği</option>
+              <option>Fotoğraf Çekimi</option>
+            </select>
+          </label>
+          <label>Proje detayları<textarea name="details" placeholder="İhtiyacınızı kısaca anlatın..."></textarea></label>
+          <div class="row">
+            <button class="btn primary" type="submit" id="reqSubmitBtn">Talebi Gönder</button>
+            <button class="btn whatsapp" type="button" onclick="sendWhatsApp()">WhatsApp ile Gönder</button>
+          </div>
+        </form>
+        <div id="requestNotice" class="notice hidden"></div>
+      </div>
+    </section>
+
+    <section id="admin" class="page hidden">
+      <div class="section-title">
+        <h2>Yönetici Paneli</h2>
+        <div class="row" style="gap:6px">
+          <span class="tag" id="adminStatusTag">KİLİTLİ</span>
+          <button type="button" class="btn sm hidden" id="lockAdminBtn" onclick="lockAdmin()">Kilitle</button>
+        </div>
+      </div>
+
+      <div id="adminLockCard" class="card lock-box">
+        <div class="eyebrow">ÖZEL YÖNETİCİ GİRİŞİ</div>
+        <h3 style="margin-top:6px" id="lockCardTitle">Yönetici Şifresini Gir</h3>
+        <p class="muted" id="lockCardDesc">Bu alan yalnızca ajans yöneticisine özeldir.</p>
+        <form id="adminPinForm" style="margin-top:12px">
+          <label id="pinInputLabel">Yönetici Şifresi / PIN
+            <input type="password" id="adminPinInput" placeholder="Şifrenizi girin" required>
+          </label>
+          <label id="pinConfirmWrap" class="hidden">Şifreyi Tekrar Gir (Onay)
+            <input type="password" id="adminPinConfirmInput" placeholder="Şifreyi tekrar girin">
+          </label>
+          <button class="btn primary" type="submit" id="pinSubmitBtn">Panele Gir</button>
+          <div id="adminPinError" class="err-text hidden"></div>
+        </form>
+      </div>
+
+      <div id="adminContent" class="hidden">
+        <div class="stats">
+          <div class="card stat"><b id="totalReq">0</b><span class="muted">Teklif talebi</span></div>
+          <div class="card stat"><b id="totalProj">0</b><span class="muted">Aktif proje</span></div>
+          <div class="card stat"><b id="activeReq">0</b><span class="muted">Görüşülüyor</span></div>
+        </div>
+        <div class="section-title">
+          <h3>Gelen Talepler</h3>
+          <div class="row">
+            <button class="btn sm" onclick="exportBackup()">Yedek İndir</button>
+            <button class="btn sm" onclick="clearRequests()">Tümünü Sil</button>
+          </div>
+        </div>
+        <div id="adminRequests" class="list"></div>
+        <div class="section-title"><h3>Yeni Proje Ekle</h3></div>
+        <form id="projectForm" class="card">
+          <label>Proje adı<input name="name" required placeholder="Örn: Lansman Kampanyası"></label>
+          <label>Müşteri / Açıklama<input name="client" required placeholder="Örn: Kurumsal Marka"></label>
+          <label>Durum
+            <select name="status">
+              <option>Planlandı</option>
+              <option>Devam Ediyor</option>
+              <option>Tamamlandı</option>
+            </select>
+          </label>
+          <button class="btn primary">Projeyi Ekle</button>
+        </form>
+
+        <div class="section-title"><h3>Güvenlik & Yönetici Şifresi</h3></div>
+        <form id="changePinForm" class="card">
+          <p class="muted" style="margin:0">Şifreni yalnızca panel kilidini açtıktan sonra mevcut şifreni doğrulayarak değiştirebilirsin.</p>
+          <label>Mevcut Yönetici Şifresi
+            <input type="password" id="oldPinInput" placeholder="Mevcut şifreniz" required>
+          </label>
+          <label>Yeni Yönetici Şifresi
+            <input type="password" id="newPinInput" placeholder="En az 4 karakter" minlength="4" required>
+          </label>
+          <button class="btn primary" type="submit">Şifreyi Güncelle</button>
+          <div id="pinChangeNotice" class="notice hidden"></div>
+          <div id="pinChangeError" class="err-text hidden"></div>
+        </form>
+      </div>
+    </section>
+
+    <section id="messages" class="page hidden">
+      <div class="section-title">
+        <h2>Mesaj Merkezi</h2>
+        <div class="row" style="gap:6px">
+          <span class="tag" id="msgModeBadge">MÜŞTERİ GÖRÜNÜMÜ</span>
+          <button type="button" class="btn sm hidden" id="clearChatBtn" onclick="clearChat()">Sohbeti Temizle</button>
+        </div>
+      </div>
+      <div class="card">
+        <div class="row" style="margin-bottom:12px">
+          <div>
+            <div class="eyebrow">CANLI MESAJ KANALI</div>
+            <p class="muted" style="margin:2px 0 0" id="msgRoleHint">Müşteriler buradan doğrudan ajansa mesaj gönderir; yönetici yanıtı özel PIN ile açılır.</p>
+          </div>
+          <div class="row" style="gap:6px">
+            <button type="button" class="btn sm primary" id="roleUserBtn" onclick="setSenderRole('user')">Müşteri</button>
+            <button type="button" class="btn sm" id="roleAgencyBtn" onclick="setSenderRole('agency')">Yönetici Yanıtı 🔒</button>
+          </div>
+        </div>
+        <div id="chatBox" class="chat-box"></div>
+        <form id="chatForm" style="max-width:100%">
+          <div class="row" style="gap:8px;max-width:100%" id="customerNameWrap">
+            <input id="customerNameInput" placeholder="Adınız veya Marka Adınız (İsteğe bağlı)" style="flex:1">
+          </div>
+          <label id="senderLabel">Gönderen: Müşteri</label>
+          <div class="row" style="max-width:100%">
+            <input id="chatInput" placeholder="Mesajınızı yazın..." required style="flex:1">
+            <button class="btn primary" id="chatSubmitBtn" type="submit">Gönder</button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <section id="profile" class="page hidden">
+      <div class="card">
+        <div class="eyebrow">KAZO CLIENT AREA</div>
+        <h2>İletişim & Uygulama Bilgisi</h2>
+        <p class="muted">KAZO Creative Agency mobil uygulaması. Ana ekrana ekleyerek tam ekran ve çevrimdışı kullanabilirsiniz.</p>
+        <form id="settingsForm" style="margin-top:14px">
+          <label>Ajans WhatsApp Hattı (Başında 90 ile, örn: 905551234567)
+            <input name="waPhone" id="waPhoneInput" placeholder="905xxxxxxxxx">
+          </label>
+          <button class="btn primary" type="submit">WhatsApp Numarasını Kaydet</button>
+        </form>
+        <div id="settingsNotice" class="notice hidden"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">KAZO CREATIVE AGENCY · Canlı Bulut Sürümü</footer>
+</div>
+
+<nav class="bottom-bar" id="bottomNav">
+  <button class="active" data-page="home"><span class="ico">⌂</span><span>Ana Sayfa</span></button>
+  <button data-page="projects"><span class="ico">◈</span><span>Projeler</span></button>
+  <button data-page="request"><span class="ico">✦</span><span>Teklif Al</span></button>
+  <button data-page="admin"><span class="ico">⚙</span><span>Yönetici</span></button>
+  <button data-page="messages"><span class="ico">✉</span><span>Mesajlar</span></button>
+  <button data-page="profile"><span class="ico">●</span><span>Ayarlar</span></button>
+</nav>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
+import {
+  getFirestore, collection, doc, addDoc, setDoc, updateDoc, deleteDoc,
+  onSnapshot, query, orderBy, getDocs
+} from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBVEgE_ItOaKgoDvdumAdmLR8Ffld_ZLV8",
+  authDomain: "kazo-4ff3d.firebaseapp.com",
+  projectId: "kazo-4ff3d",
+  storageBucket: "kazo-4ff3d.firebasestorage.app",
+  messagingSenderId: "149482514634",
+  appId: "1:149482514634:web:80620934cc70fe05596c33"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./sw.js').catch(() => {});
+  });
+}
+
+let deferredPrompt;
+const installBanner = document.getElementById('installBanner');
+const installBtn = document.getElementById('installBtn');
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+  installBanner.classList.remove('hidden');
+});
+installBtn.addEventListener('click', async () => {
+  if (!deferredPrompt) return;
+  deferredPrompt.prompt();
+  await deferredPrompt.userChoice;
+  deferredPrompt = null;
+  installBanner.classList.add('hidden');
+});
+
+let projects = [];
+let requests = [];
+let messages = [];
+let settings = { waPhone: "", pinHash: "" };
+let isAdminUnlocked = sessionStorage.getItem("kazoAdminAuth") === "1";
+let senderRole = "user";
+
+const badge = document.getElementById("appModeBadge");
+
+function esc(s) {
+  return String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+}
+
+async function hashSecret(str) {
+  if (window.crypto && crypto.subtle) {
+    const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode("KAZO_SALT_" + str));
+    return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, "0")).join("");
+  }
+  return btoa(unescape(encodeURIComponent("KAZO_SALT_" + str)));
+}
+
+onSnapshot(doc(db, "config", "main"), (snap) => {
+  badge.textContent = "CANLI BAĞLI ●";
+  badge.classList.add("online");
+  if (snap.exists()) {
+    settings = { waPhone: "", pinHash: "", ...snap.data() };
+  }
+  document.getElementById("waPhoneInput").value = settings.waPhone || "";
+  syncAdminLockUI();
+}, (err) => {
+  console.error(err);
+  badge.textContent = "BAĞLANTI HATASI";
+});
+
+const qProjects = query(collection(db, "projects"), orderBy("createdAt", "desc"));
+onSnapshot(qProjects, async (snap) => {
+  if (snap.empty && !localStorage.getItem("kazoSeeded")) {
+    localStorage.setItem("kazoSeeded", "1");
+    const defaults = [
+      {name:"Marka Kimliği",client:"Kurumsal tasarım",status:"Tamamlandı",createdAt:Date.now()-2000},
+      {name:"Sosyal Medya Kampanyası",client:"İçerik çalışması",status:"Devam Ediyor",createdAt:Date.now()-1000},
+      {name:"Reklam Filmi",client:"Video prodüksiyon",status:"Planlandı",createdAt:Date.now()}
+    ];
+    for (const item of defaults) {
+      await addDoc(collection(db, "projects"), item);
+    }
+    return;
+  }
+  projects = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+  render();
+});
+
+const qRequests = query(collection(db, "requests"), orderBy("createdAt", "desc"));
+onSnapshot(qRequests, (snap) => {
+  requests = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+  render();
+});
+
+const qMessages = query(collection(db, "messages"), orderBy("createdAt", "asc"));
+onSnapshot(qMessages, (snap) => {
+  messages = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+  render();
+  const box = document.getElementById("chatBox");
+  if (box) box.scrollTop = box.scrollHeight;
+});
+
+function syncAdminLockUI() {
+  const lockCard = document.getElementById("adminLockCard");
+  const content = document.getElementById("adminContent");
+  const tag = document.getElementById("adminStatusTag");
+  const lockBtn = document.getElementById("lockAdminBtn");
+  const clearChatBtn = document.getElementById("clearChatBtn");
+  const hasPin = Boolean(settings.pinHash);
+
+  document.getElementById("lockCardTitle").textContent = hasPin
+    ? "Yönetici Şifresini Gir"
+    : "İlk Kurulum: Sana Özel Yönetici Şifresi Belirle";
+  document.getElementById("lockCardDesc").textContent = hasPin
+    ? "Bu alan yalnızca ajans yöneticisine özeldir. Şifreyi bilmeyen kimse giremez ve değiştiremez."
+    : "Uygulamayı ilk kez açıyorsun. Yalnızca senin bileceğin bir yönetici şifresi oluştur.";
+  document.getElementById("pinConfirmWrap").classList.toggle("hidden", hasPin);
+  document.getElementById("pinSubmitBtn").textContent = hasPin ? "Panele Gir" : "Şifreyi Oluştur ve Gir";
+
+  if (isAdminUnlocked && hasPin) {
+    lockCard.classList.add("hidden");
+    content.classList.remove("hidden");
+    tag.textContent = "YÖNETİCİ AÇIK";
+    lockBtn.classList.remove("hidden");
+    if (clearChatBtn) clearChatBtn.classList.remove("hidden");
+  } else {
+    lockCard.classList.remove("hidden");
+    content.classList.add("hidden");
+    tag.textContent = hasPin ? "KİLİTLİ" : "KURULUM GEREKLİ";
+    lockBtn.classList.add("hidden");
+    if (clearChatBtn) clearChatBtn.classList.add("hidden");
+  }
+  const agencyBtn = document.getElementById("roleAgencyBtn");
+  if (agencyBtn) {
+    agencyBtn.textContent = isAdminUnlocked ? "Yönetici (KAZO)" : "Yönetici Yanıtı 🔒";
+  }
+}
+
+window.lockAdmin = function() {
+  isAdminUnlocked = false;
+  sessionStorage.removeItem("kazoAdminAuth");
+  if (senderRole === "agency") window.setSenderRole("user");
+  syncAdminLockUI();
+  render();
+};
+
+document.getElementById("adminPinForm").addEventListener("submit", async e => {
+  e.preventDefault();
+  const val = document.getElementById("adminPinInput").value.trim();
+  const err = document.getElementById("adminPinError");
+  err.classList.add("hidden");
+
+  if (!settings.pinHash) {
+    const confirmVal = document.getElementById("adminPinConfirmInput").value.trim();
+    if (val.length < 4) {
+      err.textContent = "Şifre en az 4 karakter olmalıdır.";
+      err.classList.remove("hidden");
+      return;
+    }
+    if (val !== confirmVal) {
+      err.textContent = "Girdiğin iki şifre birbiriyle eşleşmiyor.";
+      err.classList.remove("hidden");
+      return;
+    }
+    const newHash = await hashSecret(val);
+    await setDoc(doc(db, "config", "main"), { pinHash: newHash }, { merge: true });
+    isAdminUnlocked = true;
+    sessionStorage.setItem("kazoAdminAuth", "1");
+    document.getElementById("adminPinInput").value = "";
+    document.getElementById("adminPinConfirmInput").value = "";
+    syncAdminLockUI();
+    render();
+    return;
+  }
+
+  const enteredHash = await hashSecret(val);
+  if (enteredHash === settings.pinHash) {
+    isAdminUnlocked = true;
+    sessionStorage.setItem("kazoAdminAuth", "1");
+    document.getElementById("adminPinInput").value = "";
+    syncAdminLockUI();
+    render();
+  } else {
+    err.textContent = "Hatalı yönetici şifresi.";
+    err.classList.remove("hidden");
+  }
+});
+
+document.getElementById("changePinForm").addEventListener("submit", async e => {
+  e.preventDefault();
+  const oldVal = document.getElementById("oldPinInput").value.trim();
+  const newVal = document.getElementById("newPinInput").value.trim();
+  const okBox = document.getElementById("pinChangeNotice");
+  const errBox = document.getElementById("pinChangeError");
+  okBox.classList.add("hidden");
+  errBox.classList.add("hidden");
+
+  const oldHash = await hashSecret(oldVal);
+  if (oldHash !== settings.pinHash) {
+    errBox.textContent = "Mevcut şifren hatalı. Değişiklik yapılmadı.";
+    errBox.classList.remove("hidden");
+    return;
+  }
+  const newHash = await hashSecret(newVal);
+  await setDoc(doc(db, "config", "main"), { pinHash: newHash }, { merge: true });
+  e.target.reset();
+  okBox.textContent = "Yönetici şifren başarıyla güncellendi.";
+  okBox.classList.remove("hidden");
+});
+
+window.go = function(page) {
+  document.querySelectorAll(".page").forEach(x => x.classList.add("hidden"));
+  document.getElementById(page).classList.remove("hidden");
+  document.querySelectorAll("[data-page]").forEach(b => b.classList.toggle("active", b.dataset.page === page));
+  window.scrollTo({top: 0, behavior: "smooth"});
+  render();
+};
+
+document.querySelectorAll("[data-page]").forEach(b => b.addEventListener("click", () => window.go(b.dataset.page)));
+
+function render() {
+  document.getElementById("projectList").innerHTML = projects.map((p) => `
+    <article class="card">
+      <div class="row">
+        <div class="eyebrow">KAZO PROJECT</div>
+        ${isAdminUnlocked ? `<button class="btn sm" onclick="deleteProject('${p.id}')" title="Sil">✕</button>` : ""}
+      </div>
+      <h3>${esc(p.name)}</h3>
+      <p class="muted">${esc(p.client)}</p>
+      <span class="status ${p.status==="Tamamlandı"?"done":p.status==="Devam Ediyor"?"live":""}">${esc(p.status)}</span>
+    </article>
+  `).join("");
+
+  document.getElementById("totalReq").textContent = requests.length;
+  document.getElementById("totalProj").textContent = projects.length;
+  document.getElementById("activeReq").textContent = requests.filter(r => r.status === "Görüşülüyor").length;
+
+  document.getElementById("adminRequests").innerHTML = requests.length ? requests.map((r) => `
+    <article class="item">
+      <div class="row"><b>${esc(r.company)}</b><span class="status ${r.status==="Görüşülüyor"?"live":""}">${esc(r.status || "Yeni Talep")}</span></div>
+      <p class="muted">${esc(r.person)} · ${esc(r.contact)} · ${esc(r.date || "")}<br><b>Hizmet:</b> ${esc(r.service)}</p>
+      <p>${esc(r.details || "Detay girilmedi")}</p>
+      <div class="row">
+        <button class="btn sm" onclick="markSeen('${r.id}')">Görüşülüyor İşaretle</button>
+        <button class="btn sm" onclick="deleteReq('${r.id}')">Sil</button>
+      </div>
+    </article>
+  `).join("") : '<p class="muted">Henüz talep yok.</p>';
+
+  const allMsgs = messages.length ? messages : [
+    {sender:"agency", name:"KAZO Creative Agency", text:"KAZO Creative Agency uygulamasına hoş geldiniz! Buradan teklif oluşturabilir ve bize doğrudan mesaj gönderebilirsiniz.", time:"Sistem"}
+  ];
+
+  document.getElementById("chatBox").innerHTML = allMsgs.map(m => {
+    const isAgency = m.sender === 'agency';
+    const who = isAgency ? 'Yönetici (KAZO)' : (m.name ? `Müşteri (${m.name})` : 'Müşteri');
+    return `
+      <div class="msg ${isAgency ? 'agency' : 'user'}">
+        <b>${esc(who)}</b>
+        <div>${esc(m.text)}</div>
+        <small>${esc(m.time || "")}</small>
+      </div>
+    `;
+  }).join("");
+}
+
+document.getElementById("requestForm").addEventListener("submit", async e => {
+  e.preventDefault();
+  const btn = document.getElementById("reqSubmitBtn");
+  btn.disabled = true;
+  btn.textContent = "Gönderiliyor...";
+  try {
+    const d = Object.fromEntries(new FormData(e.target));
+    await addDoc(collection(db, "requests"), {
+      ...d,
+      status: "Yeni Talep",
+      date: new Date().toLocaleDateString("tr-TR"),
+      createdAt: Date.now()
+    });
+    e.target.reset();
+    const n = document.getElementById("requestNotice");
+    n.textContent = "Talebiniz KAZO ekibine iletildi! En kısa sürede sizinle iletişime geçeceğiz.";
+    n.classList.remove("hidden");
+  } catch (err) {
+    alert("Gönderim sırasında bir hata oluştu: " + err.message);
+  } finally {
+    btn.disabled = false;
+    btn.textContent = "Talebi Gönder";
+  }
+});
+
+window.sendWhatsApp = function() {
+  const form = document.getElementById("requestForm");
+  const d = Object.fromEntries(new FormData(form));
+  const text = `Merhaba KAZO Creative Agency,%0A*Marka:* ${encodeURIComponent(d.company || "-")}%0A*Ad Soyad:* ${encodeURIComponent(d.person || "-")}%0A*İletişim:* ${encodeURIComponent(d.contact || "-")}%0A*Hizmet:* ${encodeURIComponent(d.service || "-")}%0A*Detay:* ${encodeURIComponent(d.details || "-")}`;
+  const phone = (settings.waPhone || "").replace(/\D/g, "");
+  const url = phone ? `https://wa.me/${phone}?text=${text}` : `https://wa.me/?text=${text}`;
+  window.open(url, "_blank");
+};
+
+document.getElementById("projectForm").addEventListener("submit", async e => {
+  e.preventDefault();
+  const d = Object.fromEntries(new FormData(e.target));
+  await addDoc(collection(db, "projects"), { ...d, createdAt: Date.now() });
+  e.target.reset();
+});
+
+window.setSenderRole = async function(role) {
+  if (role === "agency" && !isAdminUnlocked) {
+    if (!settings.pinHash) {
+      alert("Önce Yönetici sekmesine girip sana özel yönetici şifreni oluşturmalısın.");
+      window.go("admin");
+      return;
+    }
+    const pin = prompt("Yönetici yanıtı için özel yönetici şifreni gir:");
+    if (pin === null) return;
+    const h = await hashSecret(pin.trim());
+    if (h !== settings.pinHash) {
+      alert("Şifre hatalı. Yönetici yanıtı yalnızca sana özeldir.");
+      return;
+    }
+    isAdminUnlocked = true;
+    sessionStorage.setItem("kazoAdminAuth", "1");
+    syncAdminLockUI();
+    render();
+  }
+  senderRole = role;
+  document.getElementById("roleAgencyBtn").classList.toggle("primary", role === "agency");
+  document.getElementById("roleUserBtn").classList.toggle("primary", role === "user");
+  document.getElementById("customerNameWrap").classList.toggle("hidden", role === "agency");
+  document.getElementById("msgModeBadge").textContent = role === "agency" ? "YÖNETİCİ MODU" : "MÜŞTERİ GÖRÜNÜMÜ";
+  document.getElementById("senderLabel").textContent = role === "agency"
+    ? "Gönderen: Yönetici (KAZO)"
+    : "Gönderen: Müşteri";
+  document.getElementById("chatInput").placeholder = role === "agency"
+    ? "Müşteriye yanıt yazın..."
+    : "Mesajınızı yazın...";
+  document.getElementById("chatSubmitBtn").textContent = role === "agency" ? "Yanıtla" : "Gönder";
+};
+
+document.getElementById("chatForm").addEventListener("submit", async e => {
+  e.preventDefault();
+  const inp = document.getElementById("chatInput");
+  const nameInp = document.getElementById("customerNameInput");
+  if (!inp.value.trim()) return;
+  const textVal = inp.value.trim();
+  const custName = senderRole === "user" ? nameInp.value.trim() : "KAZO";
+  inp.value = "";
+  const now = new Date().toLocaleTimeString("tr-TR", {hour:"2-digit", minute:"2-digit"}) + " · " + new Date().toLocaleDateString("tr-TR");
+  await addDoc(collection(db, "messages"), {
+    sender: senderRole,
+    name: custName,
+    text: textVal,
+    time: now,
+    createdAt: Date.now()
+  });
+});
+
+document.getElementById("settingsForm").addEventListener("submit", async e => {
+  e.preventDefault();
+  const waPhone = document.getElementById("waPhoneInput").value.trim();
+  await setDoc(doc(db, "config", "main"), { waPhone }, { merge: true });
+  const n = document.getElementById("settingsNotice");
+  n.textContent = "Ajans WhatsApp numarası buluta kaydedildi.";
+  n.classList.remove("hidden");
+});
+
+window.markSeen = async function(id) {
+  await updateDoc(doc(db, "requests", id), { status: "Görüşülüyor" });
+};
+window.deleteReq = async function(id) {
+  await deleteDoc(doc(db, "requests", id));
+};
+window.deleteProject = async function(id) {
+  await deleteDoc(doc(db, "projects", id));
+};
+window.clearRequests = async function() {
+  if (!confirm("Tüm teklif talepleri silinsin mi?")) return;
+  const snap = await getDocs(collection(db, "requests"));
+  for (const d of snap.docs) {
+    await deleteDoc(doc(db, "requests", d.id));
+  }
+};
+window.clearChat = async function() {
+  if (!confirm("Tüm sohbet geçmişi silinsin mi?")) return;
+  const snap = await getDocs(collection(db, "messages"));
+  for (const d of snap.docs) {
+    await deleteDoc(doc(db, "messages", d.id));
+  }
+};
+window.exportBackup = function() {
+  const blob = new Blob([JSON.stringify({projects, requests, messages}, null, 2)], {type:"application/json"});
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "kazo-yedek.json";
+  a.click();
+};
+
+syncAdminLockUI();
+render();
+</script>
+</body>
+</html>
